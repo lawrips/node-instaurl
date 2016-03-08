@@ -2,8 +2,8 @@
   "engines": {
     "node": "4.2.3"
   },
-  "name": "instaurl",
-  "version": "0.0.1",
+  "name": "@lripsher/instaurl",
+  "version": "0.0.2",
   "scripts": {
     "start": "node ./lib/index.js"
   },

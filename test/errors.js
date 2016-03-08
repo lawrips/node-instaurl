@@ -3,7 +3,7 @@ var should = require('should'),
 
 var config = require('../config/instaurl.json');
 
-var Instaurl = require('../lib/index.js')
+var Instaurl = require('@lripsher/instaurl')
 var instaurl = new Instaurl(config);
 var key;
 
@@ -71,7 +71,7 @@ describe('Check all error codes', function () {
                 should.not.exist(err);
                 done();
             });
-        }, rateLimit.limitInterval);
+        }, rateLimit.limitInterval + 5000);
     });
     
         
@@ -89,6 +89,8 @@ describe('Check all error codes', function () {
                 
                 // get the instaurl - should be expired
                 instaurl.get(result.key, (err, result) => {
+                    console.log(err);
+                    console.log(result);
                     should.exist(err);
                     err.statusCode.should.be.equal(410);
                     should.not.exist(result.secret);

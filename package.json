@@ -4,19 +4,35 @@
   },
   "name": "instaurl",
   "version": "0.0.1",
-  "private": true,
   "scripts": {
     "start": "node ./lib/index.js"
   },
   "description": "Node instaurl library / SDK",
-  "author": {
-    "name": "lawrips",
-    "email": "lawrence@ripsher.com"
-  },
+  "author": "lawrips <lawrence@ripsher.com>",
   "dependencies": {
+    "@lripsher/instaurl": "0.0.1",
     "async": "^1.5.2",
     "mocha": "^2.4.5",
     "request": "^2.69.0",
     "should": "^8.2.2"
-  }
+  },
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lawrips/node-instaurl.git"
+  },
+  "keywords": [
+    "instaurl"
+  ],
+  "license": "SEE LICENSE IN license.txt",
+  "bugs": {
+    "url": "https://github.com/lawrips/node-instaurl/issues"
+  },
+  "homepage": "https://github.com/lawrips/node-instaurl#readme"
 }

@@ -1,7 +1,0 @@
-// 1. rename this file to instaurl.json
-// 2. put your token in the string below
-// 3. delete these comments
-
-{
-    "token": "your developer token goes here"
-}

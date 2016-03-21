@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+var spawn = require('child_process').spawn,
+  path = require('path'),
+  fs = require('fs');
+
+var proc = spawn(process.execPath, ['../lib/console.js'].concat(process.argv.slice(2)), { stdio: 'inherit' });
+

@@ -2,8 +2,8 @@ var should = require('should');
 
 var config = require('../config/instaurl.json');
 
-    var Instaurl = require('@lripsher/instaurl')
-    var instaurl = new Instaurl(config);
+var Instaurl = require('@lripsher/instaurl')
+var instaurl = new Instaurl(config);
 var key;
 
 var mySecret = 'this is a secret';

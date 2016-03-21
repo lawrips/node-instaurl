@@ -3,21 +3,26 @@
 Before any usage, read our terms and privacy policy at www.instaurl.com
 
 ## Intro
-Instaurl allows you to easily and securely post information to a service and get back a one-time URL which can be shared with another person, device or app.
+Instaurl is a service which makes it easy to securely share content through the use of "one-time URL's". A one time URL is a link that can only be viewed once. This ensures that once the content has been viewed, no one else can view it.
 
 ## FAQ
-Coming soon
+Read more at https://www.instaurl.com/about 
 
 ## Usage
 ### Developer Token
-First you'll need a developer token. Obtain one by emailing info@instaurl.com (this will be online / self serve soon)
+The Instaurl SDK comes with a token already provisioned. This is rate limited by IP address and will allow for basic testing. Scale / production use is coming soon. For more details, contact support@instaurl.com.
 
 ### Initializing
 Use the following code to initialize the Instaurl class (currently private repo):
 ```
 var Instaurl = require('@lripsher/instaurl')
-var instaurl = new Instaurl({token: your_developer_token});
+var instaurl = new Instaurl({config});
 ```
+config can be set by referencing the already included sample file (which contains the free token). E.g.:
+```
+var config = require('../config/instaurl.json')
+``` 
+
 ### API
 Once you have your object, you can now call one of the methods:
 #### Set
@@ -69,12 +74,4 @@ Errors take the following format:
 To run the tests, go to the root directory of node-instaurl and:
 
 1. Ensure you have mocha installed ("npm i mocha -g")
-2. Rename config/instaurl_sample.json config/instaurl.json
-3. Open config/instaurl.json 
-4. Replace the placeholder text with your developer token
-5. Delete any of the comments in the file
-6. From the root directory, run "mocha --debug test"
-
-{
-    "token": "your developer token goes here"
-}
+2. From the root directory, run "mocha --debug test"

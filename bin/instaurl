@@ -4,5 +4,5 @@ var spawn = require('child_process').spawn,
   path = require('path'),
   fs = require('fs');
 
-var proc = spawn(process.execPath, ['../lib/console.js'].concat(process.argv.slice(2)), { stdio: 'inherit' });
+var proc = spawn(process.execPath,   args = [path.join(__dirname, '../lib/console.js')].concat(process.argv.slice(2)), { stdio: 'inherit' });
 

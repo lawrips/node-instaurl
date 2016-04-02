@@ -3,7 +3,7 @@ var should = require('should'),
 
 var config = require('../config/instaurl.json');
 
-var Instaurl = require('@lripsher/instaurl')
+var Instaurl = require('../index')
 var instaurl = new Instaurl(config);
 var key;
 
@@ -30,6 +30,7 @@ describe('Check all error codes', function () {
     it('Request the SDK without a token - confirm 401', function(done) {
         var badInstaurl = new Instaurl({'token': 'badtoken'});
         badInstaurl.get('randomstring', (err, result) => {
+            console.log(err);
             should.exist(err);
             err.statusCode.should.be.equal(401);
             done();
@@ -38,6 +39,7 @@ describe('Check all error codes', function () {
 
     it('Get an unknown instaurl - confirm 404', function (done) {
         instaurl.get('randomstring', (err, result) => {
+            console.log(err);
             should.exist(err);
             err.statusCode.should.be.equal(404);
             done();
@@ -82,20 +84,19 @@ describe('Check all error codes', function () {
             should.not.exist(err);
             
             // get the instaurl - should be fine
-            instaurl.get(result.key, (err, result) => {
+            instaurl.get(result.key, (err, getResult1) => {
                 if (err) console.log(err);
                 should.not.exist(err);
-                result.secret.should.equal(mySecret);
+                getResult1.secret.should.equal(mySecret);
                 
                 // get the instaurl - should be expired
-                instaurl.get(result.key, (err, result) => {
-                    console.log(err);
-                    console.log(result);
+                instaurl.get(result.key, (err, getResult2) => {
+                    if (err) console.log(err);
                     should.exist(err);
                     err.statusCode.should.be.equal(410);
-                    should.not.exist(result.secret);
+                    should.not.exist(getResult2);
+                    done();
                 });
-                done();
             })
         });        
     });

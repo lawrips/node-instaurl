@@ -3,14 +3,13 @@
     "node": "4.2.3"
   },
   "name": "@lripsher/instaurl",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "start": "node ./lib/index.js"
   },
   "description": "Node instaurl library / SDK",
   "author": "lawrips <lawrence@ripsher.com>",
   "dependencies": {
-    "@lripsher/instaurl": "0.0.1",
     "async": "^1.5.2",
     "commander": "^2.9.0",
     "mocha": "^2.4.5",
@@ -34,7 +33,7 @@
   "keywords": [
     "instaurl"
   ],
-  "license": "SEE LICENSE IN license.txt",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/lawrips/node-instaurl/issues"
   },

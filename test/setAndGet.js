@@ -2,7 +2,7 @@ var should = require('should');
 
 var config = require('../config/instaurl.json');
 
-var Instaurl = require('@lripsher/instaurl')
+var Instaurl = require('../index')
 var instaurl = new Instaurl(config);
 var key;
 

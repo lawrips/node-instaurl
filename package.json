@@ -3,12 +3,12 @@
     "node": "4.2.3"
   },
   "name": "instaurl",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "start": "node ./lib/index.js"
   },
   "description": "Node instaurl library / SDK",
-  "author": "lawrips <lawrence@ripsher.com>",
+  "author": "lripsher <lawrence@ripsher.com>",
   "dependencies": {
     "async": "^1.5.2",
     "commander": "^2.9.0",

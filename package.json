@@ -3,7 +3,7 @@
     "node": "4.2.3"
   },
   "name": "instaurl",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "start": "node ./lib/index.js"
   },

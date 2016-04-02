@@ -12,15 +12,20 @@ Read more at https://www.instaurl.com/about
 This Instaurl SDK comes with a token included. This can be found in the file ./config/instaurl.json. This is rate limited by IP address and will allow for basic testing. Scale / production use is coming soon. For more details, contact support@instaurl.com.
 
 ### Initializing
-Use the following code to initialize the Instaurl class (currently private repo):
+Use the following code to initialize the Instaurl class:
 ```
-var Instaurl = require('@lripsher/instaurl')
-var instaurl = new Instaurl({config});
+var Instaurl = require('instaurl');
+var instaurl = new Instaurl(config);
 ```
 config can be set by referencing the already included sample file (which contains the free token). E.g.:
 ```
-var config = require('../config/instaurl.json')
+var config = require(pathToInstaurlInstallation + '/config/instaurl.json'); 
 ``` 
+or simply using the following free token:
+```
+var Instaurl = require('instaurl')
+var instaurl = new Instaurl({"token": "Ngb1yfg!gbakeIgbE3!ngjqugBhHgfqe"});
+```
 
 ### API
 Once you have your object, you can now call one of the methods:
@@ -30,7 +35,7 @@ To send a secret to the service and receive a one-time URL:
 instaurl.set('my secret text', (err, result) => {
     if (err) console.log(err);
     console.log(result);
-})
+});
 ```
 Sucessful calls will return a result object in the following format:
 ```
@@ -46,12 +51,17 @@ The meaning of each of these:
 - apiUrl: the one-time URL which you can use to view the secret via the REST API's
 
 #### Get
-After setting a secret, you can retreive it from the service:
+After setting a secret, you can retreive it from the service by passing in the 'key' value above to the method instaurl.get. For example, the following would set a secret and then retrieve it immediately after:
 ```
-instaurl.get('myuniquekey', (err, result) => {
+instaurl.set('my secret text', (err, result) => {
     if (err) console.log(err);
     console.log(result);
-})
+    instaurl.get(result.key, (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+    });
+});
+
 ```
 Sucessful calls will return a result object in the following format:
 ```

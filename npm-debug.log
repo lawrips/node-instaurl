@@ -1,0 +1,107 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   '--force' ]
+2 info using npm@2.14.12
+3 info using node@v4.2.4
+4 warn using --force I sure hope you know what you are doing.
+5 verbose publish [ '.' ]
+6 silly cache add args [ '.', null ]
+7 verbose cache add spec .
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: '.',
+8 silly cache add   scope: null,
+8 silly cache add   name: null,
+8 silly cache add   rawSpec: '.',
+8 silly cache add   spec: '/Users/lawrence/Documents/git/node-instaurl',
+8 silly cache add   type: 'directory' }
+9 verbose addLocalDirectory /Users/lawrence/.npm/instaurl/0.0.10/package.tgz not in flight; packing
+10 verbose tar pack [ '/Users/lawrence/.npm/instaurl/0.0.10/package.tgz',
+10 verbose tar pack   '/Users/lawrence/Documents/git/node-instaurl' ]
+11 verbose tarball /Users/lawrence/.npm/instaurl/0.0.10/package.tgz
+12 verbose folder /Users/lawrence/Documents/git/node-instaurl
+13 info prepublish instaurl@0.0.10
+14 verbose addLocalTarball adding from inside cache /Users/lawrence/.npm/instaurl/0.0.10/package.tgz
+15 silly cache afterAdd instaurl@0.0.10
+16 verbose afterAdd /Users/lawrence/.npm/instaurl/0.0.10/package/package.json not in flight; writing
+17 verbose afterAdd /Users/lawrence/.npm/instaurl/0.0.10/package/package.json written
+18 silly publish { engines: { node: '4.2.3' },
+18 silly publish   name: 'instaurl',
+18 silly publish   version: '0.0.10',
+18 silly publish   scripts: { start: 'node ./lib/index.js' },
+18 silly publish   description: 'Node instaurl library / SDK',
+18 silly publish   author: { name: 'lripsher', email: 'lawrence@ripsher.com' },
+18 silly publish   dependencies:
+18 silly publish    { async: '^1.5.2',
+18 silly publish      commander: '^2.9.0',
+18 silly publish      mocha: '^2.4.5',
+18 silly publish      request: '^2.69.0',
+18 silly publish      should: '^8.2.2' },
+18 silly publish   main: 'lib/index.js',
+18 silly publish   directories: { test: 'test' },
+18 silly publish   bin: { instaurl: './bin/instaurl' },
+18 silly publish   devDependencies: { mocha: '^2.4.5' },
+18 silly publish   repository:
+18 silly publish    { type: 'git',
+18 silly publish      url: 'git+https://github.com/lawrips/node-instaurl.git' },
+18 silly publish   keywords: [ 'instaurl' ],
+18 silly publish   license: 'Apache-2.0',
+18 silly publish   bugs: { url: 'https://github.com/lawrips/node-instaurl/issues' },
+18 silly publish   homepage: 'https://github.com/lawrips/node-instaurl#readme',
+18 silly publish   readme: '# Instaurl\n### Easy, secure sharing through one-time URL\'s\n\n## Intro\nInstaurl is a service which makes it easy to securely share content through the use of "one-time URL\'s". A one-time URL is a link that can only be viewed once. This ensures that once the content has been viewed, no one else can view it. This SDK makes it easy to create and read these one-time URL\'s programmatically.\n\n## FAQ\nRead more at https://www.instaurl.com/about \n\n## Usage\n### Developer Token\nThis Instaurl SDK comes with a token included. This can be found in the file ./config/instaurl.json. This is rate limited by IP address and will allow for basic testing. Scale / production use is coming soon. For more details, contact support@instaurl.com.\n\n### Initializing\nUse the following code to initialize the Instaurl class:\n```\nvar Instaurl = require(\'instaurl\');\nvar instaurl = new Instaurl(config);\n```\nconfig can be set by referencing the already included sample file \'/config/instaurl.json\' in the repo (which contains the free token). Alternatively, just use the following free token:\n```\nvar Instaurl = require(\'instaurl\')\nvar instaurl = new Instaurl({"token": "Ngb1yfg!gbakeIgbE3!ngjqugBhHgfqe"});\n```\n\n### API\nOnce you have your object, you can now call one of the methods:\n#### Set\nTo send a secret to the service and receive a one-time URL:\n```\ninstaurl.set(\'my secret text\', (err, result) => {\n    if (err) console.log(err);\n    console.log(result);\n});\n```\nSucessful calls will return a result object in the following format:\n```\n{\n    "key": "1uU9sCBogUm3tumxx53mpw" \n    "webUrl": "https://www.instaurl.com/i/1uU9sCBogUm3tumxx53mpw"  \n    "apiUrl": "https://www.instaurl.com/v1.0/url/1uU9sCBogUm3tumxx53mpw"\n}\n```\nThe meaning of each of these:\n- key: the unique one-time secret key (appending to the following URL\'s)\n- webUrl: the one-time URL which you can view the secret at from a web browser\n- apiUrl: the one-time URL which you can use to view the secret via the REST API\'s\n\n#### Get\nAfter setting a secret, you can retreive it from the service by passing in the \'key\' value above to the method instaurl.get. For example, the following would set a secret and then retrieve it immediately after:\n```\ninstaurl.set(\'my secret text\', (err, result) => {\n    if (err) console.log(err);\n    console.log(result);\n    instaurl.get(result.key, (err, result) => {\n        if (err) console.log(err);\n        console.log(result);\n    });\n});\n\n```\nSucessful calls will return a result object in the following format:\n```\n{\n    "secret":"my secret text"\n}\n```\n\n#### Erorrs\nErrors take the following format:\n```\n{\n    statusCode: 429,\n    message: "Developer token limit exceeded. Try again in a short while" \n}\n```    \nThe following are valid errors:\n\n| statusCode  | message | \n| ------------- | :-------------: |\n| 401 | Incorrect token | \n| 404 | No secret found at this URL | \n| 410 | Expired. Secret already retrieved | \n| 413 | Max content size exceeded | \n| 429 | IP address rate limit exceeded. Try again in a short while | \n\n\n### Running tests\nTo run the tests, go to the root directory of node-instaurl and:\n\n1. Ensure you have mocha installed ("npm i mocha -g")\n2. From the root directory, run "mocha --debug test"\n\n\n## Console Line Interface (CLI)\nIncluded in this package is also a console app. To install the console app, run:\n```\nnpm install -g instaurl\n```\n\nThis will install the instaurl console app which can then be used to create a one-time URL directly from the command line. For example:\n\nSupported options for the CLI include:\n\n```\n\n  Options:\n\n    -h, --help                 output usage information\n    -f, --file [file]          the filename to send to instaurl\n    -t, --text [text]          provide a string rather than a file\n    -u, --url [url]            optional: overrides destination server (developers only)\n    -e, --encoding [encoding]  optional: specifies encoding (default is utf-8\n```\n### Example\n```\ninstaurl --file readme.md \n```\nwould return:\n```\nhttps://www.instaurl.com/i/H11Pws7gWOnTRa7EsaCtz3VOesNQ\n```\n\n## Terms and Conditions\nBefore any usage, read the Instaurl terms and privacy policy at www.instaurl.com\n\n\n## License\n\nThis software is licensed under the Apache 2 license, quoted below.\n\n    Copyright (c) 2016 Rivolv, Inc \n\n    Licensed under the Apache License, Version 2.0 (the "License");\n    you may not use this file except in compliance with the License.\n    You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n    Unless required by applicable law or agreed to in writing, software\n    distributed under the License is distributed on an "AS IS" BASIS,\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for the specific language governing permissions and\n    limitations under the License.\n\n',
+18 silly publish   readmeFilename: 'readme.md',
+18 silly publish   gitHead: '35c5645aee3a472e2665b36201598a47c40c1667',
+18 silly publish   _id: 'instaurl@0.0.10',
+18 silly publish   _shasum: 'dfa2418616d9f272a0fc9ca8297deccce0966f68',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name instaurl
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/instaurl
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /Users/lawrence/.npm/instaurl/0.0.10/package.tgz
+26 verbose request uri https://registry.npmjs.org/instaurl
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 12:32:59 AM
+29 verbose request using bearer token for auth
+30 verbose request id e52f55da3784752e
+31 http request PUT https://registry.npmjs.org/instaurl
+32 http 403 https://registry.npmjs.org/instaurl
+33 verbose headers { 'content-type': 'application/json',
+33 verbose headers   'cache-control': 'max-age=300',
+33 verbose headers   'content-length': '96',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Sat, 02 Apr 2016 07:33:00 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-lax1431-LAX',
+33 verbose headers   'x-cache': 'MISS',
+33 verbose headers   'x-cache-hits': '0',
+33 verbose headers   'x-timer': 'S1459582379.983141,VS0,VE215' }
+34 verbose request invalidating /Users/lawrence/.npm/registry.npmjs.org/instaurl on PUT
+35 error publish Failed PUT 403
+36 verbose stack Error: "You cannot publish over the previously published version 0.0.10." : instaurl
+36 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+36 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+36 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+36 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+36 verbose stack     at emitTwo (events.js:87:13)
+36 verbose stack     at Request.emit (events.js:172:7)
+36 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1082:10)
+36 verbose stack     at emitOne (events.js:82:20)
+36 verbose stack     at Request.emit (events.js:169:7)
+36 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+37 verbose statusCode 403
+38 verbose pkgid instaurl
+39 verbose cwd /Users/lawrence/Documents/git/node-instaurl
+40 error Darwin 15.2.0
+41 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish" "--force"
+42 error node v4.2.4
+43 error npm  v2.14.12
+44 error code E403
+45 error "You cannot publish over the previously published version 0.0.10." : instaurl
+46 error If you need help, you may report this error at:
+46 error     <https://github.com/npm/npm/issues>
+47 verbose exit [ 1, true ]

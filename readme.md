@@ -17,11 +17,7 @@ Use the following code to initialize the Instaurl class:
 var Instaurl = require('instaurl');
 var instaurl = new Instaurl(config);
 ```
-config can be set by referencing the already included sample file (which contains the free token). E.g.:
-```
-var config = require(pathToInstaurlInstallation + '/config/instaurl.json'); 
-``` 
-or simply using the following free token:
+config can be set by referencing the already included sample file '/config/instaurl.json' in the repo (which contains the free token). Alternatively, just use the following free token:
 ```
 var Instaurl = require('instaurl')
 var instaurl = new Instaurl({"token": "Ngb1yfg!gbakeIgbE3!ngjqugBhHgfqe"});
